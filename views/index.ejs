@@ -1,0 +1,128 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <title>Weather App</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #3494e6, #ec6ead);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+    }
+
+    h1 {
+      color: #007BFF;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .weather-info {
+      margin-top: 20px;
+    }
+
+    .hostname {
+      margin-top: 20px;
+      color: #333;
+      overflow: hidden;
+      word-wrap: break-word;  /* This property causes long words to be broken and wrap onto the next line */
+    }
+
+    .clock {
+      font-size: 24px;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .alert {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Weather App</h1>
+    <div class="hostname">
+      <p>Running on the host: <%= hostname %></p>
+    </div>
+    <form action="/weather" method="get">
+      <div class="form-group">
+        <input type="text" class="form-control" id="city" name="city" placeholder="Enter city" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Get Weather</button>
+    </form>
+
+    <% if (weather) { %>
+      <div class="weather-info mt-4">
+        <h2><%= weather.city %></h2>
+        <p><%= weather.description %></p>
+        <p><%= weather.temperature %>°C</p>
+      </div>
+    <% } %>
+
+    <div class="clock">
+      <script>
+        function updateClock() {
+          var now = new Date();
+          var hours = now.getHours();
+          var minutes = now.getMinutes();
+          var seconds = now.getSeconds();
+
+          hours = hours < 10 ? "0" + hours : hours;
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          document.getElementById("clock").innerText = hours + ":" + minutes + ":" + seconds;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+      </script>
+      <span id="clock"></span>
+    </div>
+    <% if (error) { %>
+      <div class="mt-4 alert alert-danger">
+        <%= error %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

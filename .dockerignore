@@ -1,0 +1,5 @@
+.git
+*docker-compose*
+node_modules
+k8s*
+README.md*
