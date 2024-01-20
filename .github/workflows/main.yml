@@ -2,6 +2,9 @@ name: NodeJS Weather App
 on:
   push:
     branches: [ "master" ]
+env:
+  IMAGE_NAME: "test-maven-app"
+  DOCKERHUB_USERNAME: "kunchalavikram"	
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,3 +18,18 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm install
+  dockerize:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout SCM
+      uses: actions/checkout@v4  
+    - name: Dockerize the Application
+      run: docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME}}:${{ github.run_number }} .
+    # - name: Login to Docker Hub
+    #   uses: docker/login-action@v3
+    #   with:
+    #     username: ${{ env.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    # - name: Push the image
+    #   run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME}}:${{ github.run_number }}
