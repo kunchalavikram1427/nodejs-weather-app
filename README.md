@@ -2,10 +2,13 @@
 Below is a simple Node.js project using Express for the backend, EJS for the view engine, and Bootstrap for styling. The weather data is fetched from the OpenWeatherMap API `https://home.openweathermap.org/`
 
 ## Install packages
-Create package.json & Install necessary packages
+Install necessary packages
 ```
-npm init -y
-npm install express axios ejs
+npm install
+```
+## Test app 
+```
+npm test
 ```
 
 ## Run the app

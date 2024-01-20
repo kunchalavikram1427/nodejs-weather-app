@@ -1,5 +1,11 @@
-.git
-*docker-compose*
 node_modules
-k8s*
-README.md*
+npm-debug.log
+.DS_Store
+.env
+.git
+.gitignore
+.dockerignore
+*docker-compose*
+Dockerfile
+README.md
+CHANGELOG.md
